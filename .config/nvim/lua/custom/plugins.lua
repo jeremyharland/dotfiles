@@ -1,6 +1,7 @@
 local plugins = {
   {
-    "github/copilot.vim"
+    "github/copilot.vim",
+    lazy = false,
   },
   {
     "nvim-neotest/nvim-nio"
@@ -31,13 +32,13 @@ local plugins = {
       require("core.utils").load_mappings("dap")
     end
   },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   event = "VeryLazy",
-  --   opts = function()
-  --     return require "custom.configs.null-ls"
-  --   end,
-  -- },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.null-ls"
+    end
+  },
   {
     "mhartington/formatter.nvim",
     event = "VeryLazy",
@@ -69,6 +70,9 @@ local plugins = {
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
+  },
+  {
+    'christoomey/vim-tmux-navigator',
   },
 }
 return plugins
