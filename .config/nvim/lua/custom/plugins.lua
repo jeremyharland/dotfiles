@@ -1,70 +1,21 @@
 local plugins = {
   {
     "github/copilot.vim",
+  lazy = false,
+  config = function()  -- Mapping tab is already used by NvChad
+  --   vim.g.copilot_no_tab_map = true;
+  --   vim.g.copilot_assume_mapped = true;
+  --   vim.g.copilot_tab_fallback = "<C-Tab>";
+  -- -- The mapping is set to other key, see custom/lua/mappings
+  -- -- or run <leader>ch to see copilot mapping section
+  --   vim.api.nvim_set_keymap("i", "<C-Tab>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+  end
+  },
+  {
+    "tpope/vim-fugitive",
     lazy = false,
     config = function()
     end
-  },
-  {
-    "nvim-neotest/nvim-nio"
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-      require("dapui").setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end
-  },
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require "custom.configs.dap"
-      require("core.utils").load_mappings("dap")
-    end
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
-    config = function()
-      require "custom.configs.null-ls"
-    end
-  },
-  {
-    "mhartington/formatter.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require "custom.configs.formatter"
-    end
-  },
-  {
-    "mfussenegger/nvim-lint",
-    event = "VeryLazy",
-    config = function()
-      require "custom.configs.lint"
-    end
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "eslint-lsp",
-        "js-debug-adapter",
-        "prettier",
-        "typescript-language-server"
-      }
-    }
   },
   {
     "neovim/nvim-lspconfig",
@@ -74,7 +25,50 @@ local plugins = {
     end,
   },
   {
-    'christoomey/vim-tmux-navigator',
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "eslint-lsp",
+        "prettierd",
+        "tailwindcss-language-server",
+        "typescript-language-server",
+      },
+    },
   },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.configs.null-ls"
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {"javascript", "javascriptreact", "typescript", "typescriptreact"},
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      local opts = require "plugins.configs.treesitter"
+      opts.ensure_installed = {
+        "lua",
+        "javascript",
+        "typescript",
+        "tsx",
+      }
+      return opts
+    end,
+  },
+  -- {
+  --   "pwntester/octo.nvim",
+  --   lazy = false,
+  --   ft = "octo",
+  --   config = function()
+  --     require("octo").setup()
+  --   end,
+  -- }
 }
 return plugins
