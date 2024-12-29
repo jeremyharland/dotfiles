@@ -11,9 +11,6 @@ local default_plugins = {
       require("base46").load_all_highlights()
     end,
   },
-  {
-   "github/copilot.vim"
-  },
 
   {
     "NvChad/ui",

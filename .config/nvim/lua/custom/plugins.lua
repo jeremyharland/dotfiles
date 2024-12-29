@@ -2,6 +2,8 @@ local plugins = {
   {
     "github/copilot.vim",
     lazy = false,
+    config = function()
+    end
   },
   {
     "nvim-neotest/nvim-nio"
