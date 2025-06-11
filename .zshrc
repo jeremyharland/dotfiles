@@ -63,6 +63,7 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
+alias pn='pnpm'
 
 # Always mkdir a path (this doesn't inhibit functionality to make a single dir)
 alias mkdir='mkdir -p'
@@ -78,5 +79,4 @@ pokemon-colorscripts --no-title -r 1,3,6
 
 eval "$(zoxide init zsh)"
 
-# set asdf path
-. /opt/asdf-vm/asdf.sh
+eval "$(mise activate zsh)"
