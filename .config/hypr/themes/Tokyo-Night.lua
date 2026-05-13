@@ -1,0 +1,41 @@
+hl.exec_cmd("gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle-purple'")
+hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'Tokyo-Night'")
+hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
+
+hl.config({
+    general = {
+        gaps_in          = 3,
+        gaps_out         = 8,
+        border_size      = 2,
+        col = {
+            active_border   = { colors = {"rgba(bb9af7ff)", "rgba(b4f9f8ff)"}, angle = 45 },
+            inactive_border = { colors = {"rgba(565f89cc)", "rgba(9aa5cecc)"}, angle = 45 },
+        },
+        layout           = "dwindle",
+        resize_on_border = true,
+    },
+    group = {
+        col = {
+            border_active          = { colors = {"rgba(bb9af7ff)", "rgba(b4f9f8ff)"}, angle = 45 },
+            border_inactive        = { colors = {"rgba(565f89cc)", "rgba(9aa5cecc)"}, angle = 45 },
+            border_locked_active   = { colors = {"rgba(bb9af7ff)", "rgba(b4f9f8ff)"}, angle = 45 },
+            border_locked_inactive = { colors = {"rgba(565f89cc)", "rgba(9aa5cecc)"}, angle = 45 },
+        },
+    },
+    decoration = {
+        rounding = 10,
+        shadow = {
+            enabled = false,
+        },
+        blur = {
+            enabled          = true,
+            size             = 6,
+            passes           = 3,
+            new_optimizations = true,
+            ignore_opacity   = true,
+            xray             = false,
+        },
+    },
+})
+
+hl.layer_rule({ match = { namespace = "waybar" }, blur = true })

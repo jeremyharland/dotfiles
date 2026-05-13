@@ -1,0 +1,1 @@
+-- Wallbash color overrides (auto-generated — do not edit manually)

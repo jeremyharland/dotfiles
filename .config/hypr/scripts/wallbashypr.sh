@@ -9,8 +9,8 @@ hypDir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/themes"
 # regen color conf
 
 if [ "$EnableWallDcol" -eq 1 ] ; then
-    cp ${hypDir}/Wall-Dcol.conf ${hypDir}/colors.conf
+    cp ${hypDir}/Wall-Dcol.lua ${hypDir}/colors.lua
 else
-    > ${hypDir}/colors.conf
+    > ${hypDir}/colors.lua
 fi
 
