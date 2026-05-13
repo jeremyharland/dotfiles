@@ -66,7 +66,7 @@ hl.config({
         preserve_split = true,
     },
     master = {
-        new_on_active = true,
+        new_on_active = "after",
     },
     misc = {
         vrr                      = 0,
