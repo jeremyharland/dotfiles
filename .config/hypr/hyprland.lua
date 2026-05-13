@@ -20,9 +20,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dunst")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
+    hl.exec_cmd("wl-clip-persist --clipboard primary")
     hl.exec_cmd(scrPath .. "/swwwallpaper.sh")
     hl.exec_cmd("1password --silent")
-    hl.exec_cmd("mullvad-vpn")
+    -- hl.exec_cmd("mullvad-vpn")
 end)
 
 -- ENV

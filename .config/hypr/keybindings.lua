@@ -71,8 +71,8 @@ hl.bind(mainMod .. " + SHIFT + A",     hl.dsp.exec_cmd("pkill -x rofi || " .. sc
 hl.bind(mainMod .. " + SHIFT + W",     hl.dsp.exec_cmd("pkill -x rofi || " .. scrPath .. "/swwwallselect.sh"))
 hl.bind(mainMod .. " + V",             hl.dsp.exec_cmd("pkill -x rofi || " .. scrPath .. "/cliphist.sh c"))
 hl.bind(mainMod .. " + K",             hl.dsp.exec_cmd(scrPath .. "/keyboardswitch.sh"))
-hl.bind(mainMod .. " + SHIFT + E",     hl.dsp.exec_cmd(scrPath .. "/followmouseoff.sh"))
-hl.bind(mainMod .. " + SHIFT + E",     hl.dsp.exec_cmd(scrPath .. "/followmouseon.sh"),        { release = true })
+-- hl.bind(mainMod .. " + SHIFT + E",     hl.dsp.exec_cmd(scrPath .. "/followmouseoff.sh"))
+-- hl.bind(mainMod .. " + SHIFT + E",     hl.dsp.exec_cmd(scrPath .. "/followmouseon.sh"),        { release = true })
 hl.bind(mainMod .. " + F10",           hl.dsp.exec_cmd(scrPath .. "/toggle-monitor.sh"))
 
 -- Move focus
