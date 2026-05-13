@@ -14,12 +14,12 @@ do
     $ScrDir/themeswitch.sh -s $themeName &> /dev/null
     sleep 0.2
 
-    hyprctl dispatch workspace empty
+    hyprctl dispatch "hl.dsp.focus({ workspace = 'empty' })"
     dolphin &> /dev/null &
     sleep 0.21
     kitty &> /dev/null &
     sleep 1.4
-    hyprctl dispatch workspace empty
+    hyprctl dispatch "hl.dsp.focus({ workspace = 'empty' })"
 
     #walln=`ls -l $WalDir/$themeName | wc -l`
     for (( i=1 ; i<3 ; i++ ))
