@@ -1,6 +1,6 @@
 0|Catppuccin-Mocha|Catppuccin.catppuccin-vsc~Catppuccin Mocha|~/.config/swww/Catppuccin-Mocha/boat_abondoned.jpg
 0|Catppuccin-Latte|Catppuccin.catppuccin-vsc~Catppuccin Latte|~/.config/swww/Catppuccin-Latte/shaded_landscape.jpg
-1|Decay-Green|decaycs.decay~Decayce|~/.config/swww/Decay-Green/relaxed_mario.png
+1|Decay-Green|decaycs.decay~Decayce|~/.config/swww/Decay-Green/aurora_borealis.png
 0|Rose-Pine|mvllow.rose-pine~Rosé Pine|~/.config/swww/Rose-Pine/red_purple.jpg
 0|Tokyo-Night|enkia.tokyo-night~Tokyo Night Storm|~/.config/swww/Tokyo-Night/street.gif
 0|Material-Sakura|mvllow.rose-pine~Rosé Pine Dawn|~/.config/swww/Material-Sakura/material_pastel_3.jpg
