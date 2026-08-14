@@ -5,6 +5,7 @@
 
     casks = [
       "caffeine"
+      "calibre"
       "chromium"
       "dbeaver-community"
       "discord"
@@ -14,6 +15,7 @@
       "google-chrome"
       "intellij-idea"
       "jellyfin-media-player"
+      "keybase"
       "logi-options+"
       "maccy"
       "notion"
