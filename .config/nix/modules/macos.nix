@@ -3,14 +3,24 @@
   # fresh machine ends up configured the same way after darwin-rebuild.
   system.defaults = {
     NSGlobalDomain = {
-      AppleInterfaceStyle = "Dark";
       AppleInterfaceStyleSwitchesAutomatically = true;
       AppleShowAllExtensions = true;
       AppleShowScrollBars = "Always";
       InitialKeyRepeat = 25;
       KeyRepeat = 5;
       "com.apple.swipescrolldirection" = false; # natural scroll off
-      _HIHideMenuBar = true;
+      _HIHideMenuBar = false;
+    };
+
+    menuExtraClock = {
+      Show24Hour = true;
+      ShowDate = 2;
+      ShowDayOfWeek = false;
+    };
+
+    controlcenter = {
+      Bluetooth = false;
+      Sound = false;
     };
 
     dock = {
@@ -18,6 +28,11 @@
       mru-spaces = false; # don't rearrange Spaces by recent use
       show-recents = false;
       tilesize = 25;
+      persistent-apps = [
+        "/Applications/Ghostty.app"
+        "/Applications/Firefox Developer Edition.app"
+        "/Applications/Visual Studio Code.app"
+      ];
     };
 
     finder = {
