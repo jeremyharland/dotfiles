@@ -27,6 +27,7 @@
       autohide = true;
       mru-spaces = false; # don't rearrange Spaces by recent use
       show-recents = false;
+      static-only = true;
       tilesize = 25;
       persistent-apps = [
         "/Applications/Ghostty.app"
