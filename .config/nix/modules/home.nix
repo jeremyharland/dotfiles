@@ -7,7 +7,11 @@
 
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
+    # compinit's default `compaudit` security scan re-stats every dir in
+    # $fpath on every shell start (~600ms here). We run it ourselves in
+    # initContent with `compinit -C`, which skips that scan and only
+    # re-verifies once a day (see the `mkOrder 600` block below).
+    enableCompletion = false;
 
     defaultKeymap = "emacs";
 
@@ -77,32 +81,27 @@
       source ~/.orbstack/shell/init.zsh 2>/dev/null || :
     '';
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh/themes/powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
-
     initContent = lib.mkMerge [
-      # Powerlevel10k instant prompt must stay as close to the top of
-      # .zshrc as possible — run `p10k configure` to (re)generate ~/.p10k.zsh.
-      (lib.mkOrder 500 ''
-        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-      '')
-
       # zsh-completions' function definitions need to be in fpath before
       # compinit runs.
       (lib.mkOrder 550 ''
         fpath=(${pkgs.zsh-completions}/share/zsh/site-functions $fpath)
       '')
 
-      (lib.mkOrder 1000 ''
-        [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+      # Skip compinit's compaudit security scan unless the dump is >24h
+      # old, dropping compinit from ~600ms to ~20ms on every other start.
+      (lib.mkOrder 600 ''
+        autoload -Uz compinit
+        zcd="''${ZDOTDIR:-$HOME}/.zcompdump"
+        if [[ -n "$zcd"(#qN.mh+24) ]]; then
+          compinit
+        else
+          compinit -C
+        fi
+        unset zcd
+      '')
 
+      (lib.mkOrder 1000 ''
         # up/down arrow: filter history to lines starting with what's already
         # typed, instead of cycling every history entry (oh-my-zsh core default)
         autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -116,5 +115,10 @@
         command -v mise   >/dev/null && eval "$(mise activate zsh)"
       '')
     ];
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
   };
 }

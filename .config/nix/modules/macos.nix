@@ -1,4 +1,16 @@
 { ... }: {
+  # nix-darwin's system-wide /etc/zshrc duplicates work home-manager's
+  # user zshrc already does properly (see modules/home.nix): its own
+  # unpatched `compinit` alone cost ~600ms on every shell start, plus a
+  # `promptinit`/`prompt suse` call that's immediately overridden by
+  # powerlevel10k anyway. Keep programs.zsh.enable (needed for nix's
+  # PATH/session setup) but drop the redundant completion/prompt init.
+  programs.zsh = {
+    enableCompletion = false;
+    enableBashCompletion = false;
+    promptInit = "";
+  };
+
   # Captured from this Mac's live System Settings (defaults read ...) so a
   # fresh machine ends up configured the same way after darwin-rebuild.
   system.defaults = {
