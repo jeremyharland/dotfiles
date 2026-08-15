@@ -25,6 +25,7 @@
     };
 
     menuExtraClock = {
+      IsAnalog = false;
       Show24Hour = true;
       ShowDate = 2;
       ShowDayOfWeek = false;
