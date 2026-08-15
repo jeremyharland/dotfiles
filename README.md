@@ -81,10 +81,11 @@ darwin-rebuild switch --flake ~/.config/nix#mbp
 
 ## Gotchas
 
-- **Username is hardcoded.** `flake.nix` sets `username = "jeremy"`, and a
-  few absolute `/Users/jeremy/...` paths live in `home.nix` / `apps.nix`.
-  Only safe to run as-is on an account named `jeremy` — edit those first
-  otherwise.
+- **Username lives in one place.** `flake.nix` sets `username = "jeremy"` —
+  that's the only line to change for a different account (e.g.
+  `username = "jeremyharland"`). Everything else (`home.nix`, `apps.nix`)
+  derives the home directory from `config.system.primaryUser` /
+  `config.home.homeDirectory` instead of hardcoding `/Users/jeremy`.
 - **Homebrew cleanup is aggressive.** `homebrew.onActivation.cleanup = "zap"`
   in `homebrew.nix` removes any cask/formula *not* listed in that file on
   every switch, including app data. Harmless on a blank Mac; be aware before

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   # home-manager owns the interactive shell (theme, plugins, aliases). It
   # sources plugin files straight from the nix store at build time, so
   # there's no path-guessing and no dependency on what nix-darwin's
@@ -71,7 +71,7 @@
     # login-shell env, previously in loose ~/.zshenv / ~/.zprofile
     envExtra = ''
       # uv
-      export PATH="/Users/jeremy/.local/bin:$PATH"
+      export PATH="${config.home.homeDirectory}/.local/bin:$PATH"
     '';
     profileExtra = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"

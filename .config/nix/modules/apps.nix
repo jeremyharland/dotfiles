@@ -1,4 +1,4 @@
-{ ... }: {
+{ config, ... }: {
   # Per-app preferences, captured from live `defaults read <domain>` output.
   # Only meaningful user settings are kept here — internal/runtime state
   # (window frames, timestamps, version strings, telemetry IDs) is left out
@@ -16,7 +16,7 @@
       enableSoundEffects = true;
       soundEffectTheme = "simple";
       appTheme = "system";
-      appFolderDirectory = "/Users/jeremy";
+      appFolderDirectory = "/Users/${config.system.primaryUser}";
       # hotkeys captured as-is from `defaults read com.superduper.superwhisper`
       KeyboardShortcuts_pushToTalk = ''{"carbonKeyCode":49,"carbonModifiers":2048,"mouseButtonNumbers":[]}'';
       KeyboardShortcuts_toggleRecording = ''{"carbonKeyCode":54,"mouseButtonNumbers":[],"carbonModifiers":256}'';
