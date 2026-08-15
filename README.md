@@ -1,14 +1,75 @@
-install stow
+nix-darwin + home-manager config for a Mac. Managed via flake at `.config/nix`.
 
-```paru -S stow```
+## Bootstrap on a fresh Mac
 
-Create a directory for the dotfiles
+**1. Command Line Tools + Nix (one block, non-interactive)**
 
-```mkdir -p ~/dotfiles```
+CLT is required before anything else: it provides `git` (to clone this repo)
+and Homebrew's installer hard-refuses to run without it (nix-homebrew
+installs Homebrew for you during step 3, so CLT has to exist first — it
+can't be folded into the nix-darwin activation since darwin-rebuild doesn't
+exist yet at this point). The snippet below installs CLT silently instead
+of popping the GUI installer, then installs Nix:
 
-Clone repo in created directory
+```sh
+# Command Line Tools (silent — avoids the GUI popup / manual "Install" click)
+if ! xcode-select -p >/dev/null 2>&1; then
+  touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+  PROD=$(softwareupdate -l | grep "\*.*Command Line Tools" | tail -n1 | sed 's/^[^C]* //')
+  sudo softwareupdate -i "$PROD" --agree-to-license
+  rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+fi
 
-Run stow to symlink the dotfiles
+# Nix (Determinate Systems installer — flakes enabled by default)
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
 
-```stow .```
+Restart the terminal after this so `nix` is on `PATH`.
 
+**2. Sign into the App Store**
+
+`apps.nix` installs Xcode via `masApps` (Mac App Store). `mas` needs an
+already-signed-in App Store account or that install silently fails.
+
+**3. Clone + stow**
+
+```sh
+git clone git@github.com:jeremyharland/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+stow .
+```
+
+This symlinks `.config/nvim`, `.config/tmux`, `.config/ghostty`, `.config/nix`,
+and `superwhisper/` into `$HOME`.
+
+**4. First activation**
+
+`darwin-rebuild` doesn't exist yet on a fresh machine, so the first switch
+runs through `nix run`:
+
+```sh
+sudo nix run nix-darwin -- switch --flake ~/.config/nix#mbp
+```
+
+This installs Homebrew itself, all casks/MAS apps, home-manager's zsh +
+starship + plugin setup, and macOS defaults. Takes a while the first time.
+
+**5. Subsequent changes**
+
+```sh
+darwin-rebuild switch --flake ~/.config/nix#mbp
+```
+
+## Gotchas
+
+- **Username is hardcoded.** `flake.nix` sets `username = "jeremy"`, and a
+  few absolute `/Users/jeremy/...` paths live in `home.nix` / `apps.nix`.
+  Only safe to run as-is on an account named `jeremy` — edit those first
+  otherwise.
+- **Homebrew cleanup is aggressive.** `homebrew.onActivation.cleanup = "zap"`
+  in `homebrew.nix` removes any cask/formula *not* listed in that file on
+  every switch, including app data. Harmless on a blank Mac; be aware before
+  running on a machine with unrelated Homebrew state.
+- **Superwhisper config** (modes, vocab/replacements) lives in `superwhisper/`
+  at the repo root and gets stowed to `~/superwhisper`. Recordings and models
+  stay untracked/regenerated, so nothing large gets pulled by git.
