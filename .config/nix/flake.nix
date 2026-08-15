@@ -6,9 +6,11 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, home-manager }:
   let
     username = "jeremy";
 
@@ -18,8 +20,16 @@
         ./modules/homebrew.nix
         ./modules/macos.nix
         ./modules/apps.nix
-        ./modules/zsh.nix
       ];
+
+      # home-manager derives home.username/home.homeDirectory from this.
+      users.users.${username}.home = "/Users/${username}";
+
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.${username} = import ./modules/home.nix;
+      };
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -47,6 +57,7 @@
       modules = [
         configuration
         nix-homebrew.darwinModules.nix-homebrew
+        home-manager.darwinModules.home-manager
         {
           nix-homebrew = {
             # Install Homebrew under the default prefix
