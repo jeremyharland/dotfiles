@@ -45,6 +45,7 @@
         "/Applications/Ghostty.app"
         "/Applications/Firefox Developer Edition.app"
         "/Applications/Visual Studio Code.app"
+        "/Applications/Slack.app"
       ];
     };
 
