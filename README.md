@@ -36,8 +36,12 @@ already-signed-in App Store account or that install silently fails.
 ```sh
 git clone git@github.com:jeremyharland/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow .
+nix run nixpkgs#stow -- .
 ```
+
+(`stow` itself is in `packages.nix`, so it isn't installed system-wide until
+step 4 — `nix run` grabs it ad hoc for this one command. After step 4 you
+can just run `stow` directly.)
 
 This symlinks `.config/nvim`, `.config/tmux`, `.config/ghostty`, `.config/nix`,
 `.ssh/config`, and `superwhisper/` into `$HOME`.
