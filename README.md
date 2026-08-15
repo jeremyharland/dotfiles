@@ -61,6 +61,24 @@ EOF
 chmod 600 ~/.ssh/config.local
 ```
 
+**3b. Determinate installs: disable nix-darwin's Nix management**
+
+The Determinate installer (step 1) runs its own daemon and manages
+`nix.conf` itself. nix-darwin tries to manage Nix too by default and
+hard-aborts activation when it detects Determinate ("Determinate detected,
+aborting activation"). Add this to the `configuration` block in
+`flake.nix` before the first switch:
+
+```nix
+nix.enable = false;
+```
+
+(Not committed as the default — machines with a non-Determinate Nix
+install, e.g. the original `nix.settings.experimental-features` line
+still in this repo, rely on nix-darwin managing `nix.conf` and would lose
+flakes support if this were set globally. It's a per-machine toggle, same
+as `username` below.)
+
 **4. First activation**
 
 `darwin-rebuild` doesn't exist yet on a fresh machine, so the first switch
