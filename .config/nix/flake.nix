@@ -17,6 +17,7 @@
         ./modules/packages.nix
         ./modules/homebrew.nix
         ./modules/macos.nix
+        ./modules/apps.nix
         ./modules/zsh.nix
       ];
 
