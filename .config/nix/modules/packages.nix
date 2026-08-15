@@ -16,6 +16,7 @@
     pkgs.tmux
     pkgs.zoxide
     pkgs._1password-cli
+    pkgs._1password-gui
     pkgs.mpv
     pkgs.fastfetch
     pkgs.speedtest-cli
