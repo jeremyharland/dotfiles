@@ -1,4 +1,12 @@
 { config, ... }: {
+  launchd.user.agents.stats = {
+    serviceConfig = {
+      ProgramArguments = [ "/Applications/Stats.app/Contents/MacOS/Stats" ];
+      RunAtLoad = true;
+      KeepAlive = false;
+    };
+  };
+
   launchd.user.agents.orbstack = {
     serviceConfig = {
       ProgramArguments = [ "/Applications/OrbStack.app/Contents/MacOS/OrbStack" ];
