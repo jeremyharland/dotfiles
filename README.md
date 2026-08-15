@@ -40,7 +40,22 @@ stow .
 ```
 
 This symlinks `.config/nvim`, `.config/tmux`, `.config/ghostty`, `.config/nix`,
-and `superwhisper/` into `$HOME`.
+`.ssh/config`, and `superwhisper/` into `$HOME`.
+
+**3a. Create `~/.ssh/config.local`**
+
+The tracked `.ssh/config` is generic on purpose — this repo is public.
+Anything machine-specific (public IPs, personal/student IDs) goes in
+`~/.ssh/config.local`, which stays outside the repo and is never committed:
+
+```sh
+cat > ~/.ssh/config.local <<'EOF'
+Host myserver
+  HostName 203.0.113.5
+  User someone
+EOF
+chmod 600 ~/.ssh/config.local
+```
 
 **4. First activation**
 
